@@ -10,7 +10,7 @@ class Observer(Protocol):
 class NewsSubject:
     def __init__(self) -> None:
         self._subs: dict[Observer, set[str] | None] = {}
-    
+
     def subscribe(
         self,
         observer: Observer,
@@ -41,8 +41,7 @@ class EmailObserver:
 
 
 class SmsObserver:
-
-    def update(self, topic, data):
+    def update(self, topic: str, data: str) -> None:
         print(f"sms:{topic}={data}")
 
 
@@ -51,11 +50,12 @@ def main() -> None:
 
     log = LogObserver()
     email = EmailObserver()
-    sms_observer = SmsObserver()
+    sms = SmsObserver()
 
     subject.subscribe(log, topics={"sports", "breaking"})
     subject.subscribe(email)  # None = receives all topics
-    subject.subscribe(sms_observer, topics={"breaking"})
+
+    subject.subscribe(sms, topics={"breaking"})
 
     subject.notify("weather", "rain")
     subject.notify("sports", "goal")
