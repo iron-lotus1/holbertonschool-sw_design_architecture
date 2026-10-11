@@ -35,9 +35,6 @@ class EmailObserver:
     def update(self, topic: str, data: str) -> None:
         print(f"email:{topic}={data}")
 
-
-# TODO: implement SmsObserver
-# Its update(topic, data) method must print:  sms:<topic>=<data>
 class SmsObserver:
 
     def update(self, topic, data):
@@ -53,8 +50,6 @@ def main() -> None:
     subject.subscribe(log, topics={"sports", "breaking"})
     subject.subscribe(email)  # None = receives all topics
     subject.subscribe(sms_observer, topics={"breaking"})
-
-    # TODO: instantiate SmsObserver and subscribe it to topics={"breaking"} only
 
     subject.notify("weather", "rain")
     subject.notify("sports", "goal")
